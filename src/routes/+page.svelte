@@ -127,7 +127,6 @@
 	function handleOptionChanged(option: any) {
 		selectedPart.selectedOption = option;
 		alpacaImageParts = alpacaImageParts;
-		console.log(option.name);
 	}
 
 	function randomAlpaca() {
@@ -140,20 +139,24 @@
 	function saveAsImage() {
 		const canvas = document.createElement('canvas');
 		const context = canvas.getContext('2d');
-		const divToCapture = document.getElementById('alpaca-avatar'); // Replace with your div ID
-		const image = new Image();
 
-		if (divToCapture && context) {
-			// Set canvas dimensions to match the div
-			canvas.width = divToCapture.offsetWidth;
-			canvas.height = divToCapture.offsetHeight;
+		alpacaImageParts.forEach((e, i) => {
+			const img = new Image();
+			img.src = e.url + e.selectedOption.fileName;
+			if (i === 0) {
+				canvas.height = img.height;
+				canvas.width = img.width;
+			}
+			context?.drawImage(img, 0, 0);
+		});
 
-			// Draw the div content onto the canvas
-			context.drawImage(divToCapture as CanvasImageSource, 0, 0);
+		const dataURL = canvas.toDataURL('image/png');
 
-			// Open the image in a new window
-			window.open(canvas.toDataURL());
-		}
+		const link = document.createElement('a');
+		link.href = dataURL;
+		link.download = 'alpaca-avatar.png';
+
+		link.click();
 	}
 </script>
 

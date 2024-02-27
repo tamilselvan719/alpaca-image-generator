@@ -1,1 +1,1 @@
-This is my version of Alpaca image generator website project from https://www.codementor.io/ buit with Svelte Kit and tailwind CSS.
+This is my version of Alpaca image generator website project from https://www.codementor.io/ built with Svelte Kit and tailwind CSS.
